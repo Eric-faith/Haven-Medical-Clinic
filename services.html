@@ -53,14 +53,16 @@ img,svg{max-width:100%;display:block;}
 /* ============ HEADER / NAP ============ */
 header{position:relative;z-index:100;border-bottom:1px solid var(--gray);}
 .util-bar{background:var(--dark);color:rgba(255,255,255,0.85);font-size:0.78rem;}
-.util-inner{max-width:1200px;margin:0 auto;padding:9px 32px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;row-gap:6px;}
-.nap{display:flex;align-items:center;gap:18px;flex-wrap:wrap;row-gap:6px;}
+.util-inner{max-width:1200px;margin:0 auto;padding:9px 32px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:nowrap;}
+.nap{display:flex;align-items:center;gap:18px;flex-wrap:wrap;row-gap:6px;justify-content:flex-start;text-align:left;}
 .nap strong{color:var(--white);font-weight:700;letter-spacing:0.01em;white-space:nowrap;}
 .nap-item{display:flex;align-items:center;gap:6px;color:rgba(255,255,255,0.8);white-space:nowrap;}
 .nap-item svg{flex:none;}
-.util-right{display:flex;align-items:center;gap:18px;flex-wrap:wrap;row-gap:6px;}
+.util-right{display:flex;align-items:center;gap:18px;flex-wrap:wrap;row-gap:6px;flex:none;}
 .util-right a{color:rgba(255,255,255,0.85);display:flex;align-items:center;gap:6px;white-space:nowrap;}
 .util-right a:hover{color:var(--white);}
+.util-book{padding:8px 16px;box-shadow:none;}
+.util-book:hover{transform:translateY(-1px);}
 
 .topbar{position:sticky;top:0;background:#ffffff;display:flex;align-items:center;justify-content:space-between;padding:14px 32px;border-bottom:1px solid var(--gray);}
 .logo{display:flex;align-items:center;gap:10px;flex:none;}
@@ -68,6 +70,8 @@ header{position:relative;z-index:100;border-bottom:1px solid var(--gray);}
 .logo-sub{font-weight:500;font-size:0.6rem;letter-spacing:0.14em;color:var(--gray-mid);margin-top:2px;}
 
 .nav-toggle{position:absolute;opacity:0;pointer-events:none;}
+.nav-head{display:none;}
+.nav-backdrop{display:none;}
 nav{display:flex;align-items:center;gap:30px;}
 nav a.navlink{font-weight:600;font-size:0.87rem;color:var(--dark);position:relative;padding:4px 0;}
 nav a.navlink:after{content:"";position:absolute;left:0;bottom:-4px;height:2px;width:0;background:var(--primary);border-radius:2px;transition:width .25s ease;}
@@ -110,32 +114,20 @@ nav a.navlink.active:after{width:100%;}
 .page-hero h1{font-size:2.5rem;margin-top:16px;}
 .page-hero p{margin-top:16px;font-size:1.03rem;line-height:1.65;color:#4B5567;}
 
-/* ============ HOME HERO ============ */
-.hero{padding:56px 0 0;background:linear-gradient(180deg,#EEF3FF 0%,#F5F8FF 65%,var(--white) 100%);position:relative;overflow:hidden;}
-.hero:before{content:"";position:absolute;top:-120px;right:-160px;width:520px;height:520px;background:radial-gradient(circle,rgba(56,182,255,0.25),transparent 70%);border-radius:50%;pointer-events:none;animation:blobPulse 6s ease-in-out infinite;}
-.hero-grid{display:grid;grid-template-columns:1fr 0.95fr;gap:56px;align-items:center;position:relative;}
-.hero h1{font-size:2.85rem;letter-spacing:-0.01em;}
-.hero h1 .accent{color:var(--primary);}
-.hero-sub{margin-top:20px;font-size:1.05rem;line-height:1.65;color:#4B5567;max-width:480px;}
-.hero-ctas{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap;}
-.hero-meta{margin-top:22px;font-size:0.85rem;color:var(--gray-mid);display:flex;align-items:center;gap:8px;}
-
-.hero-visual{position:relative;}
-.hero-art{width:100%;aspect-ratio:5/5;border-radius:28px;overflow:hidden;position:relative;box-shadow:var(--shadow);background:linear-gradient(150deg,var(--accent) 0%,var(--primary) 100%);}
-.stat-card{position:absolute;background:var(--white);border-radius:16px;box-shadow:var(--shadow-sm);padding:14px 18px;display:flex;align-items:center;gap:12px;max-width:220px;}
-.stat-card.sc2{bottom:20px;right:-20px;}
-.stat-icon{width:38px;height:38px;border-radius:10px;background:rgba(74,108,247,0.1);display:flex;align-items:center;justify-content:center;flex:none;}
-.stat-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.85rem;color:var(--dark);}
-.stat-sub{font-size:0.72rem;color:var(--gray-mid);}
-
-.stats-bar{margin-top:52px;position:relative;z-index:2;}
-.stats-card{background:var(--white);border-radius:22px;box-shadow:var(--shadow);padding:28px 36px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
-.stat-block{display:flex;align-items:center;gap:14px;padding:0 12px;border-left:1px solid var(--gray);}
-.stat-block:first-child{border-left:none;padding-left:0;}
-.stat-block .sb-icon{width:44px;height:44px;border-radius:12px;background:rgba(56,182,255,0.12);display:flex;align-items:center;justify-content:center;flex:none;}
-.stat-block .sb-num{font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.3rem;color:var(--dark);}
-.stat-block .sb-label{font-size:0.74rem;color:var(--gray-mid);}
-
+/* ============ HERO (full-bleed background image, all pages) ============ */
+.hero-bg{position:relative;min-height:520px;display:flex;align-items:center;overflow:hidden;padding:120px 0 70px;}
+.hero-bg.hero-bg-sm{min-height:360px;padding:100px 0 56px;}
+.hero-bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
+.hero-bg:after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(115deg,rgba(10,16,28,0.86) 0%,rgba(18,27,42,0.66) 45%,rgba(18,27,42,0.32) 100%);}
+.hero-bg-content{position:relative;z-index:2;max-width:640px;}
+.hero-bg .eyebrow{background:rgba(255,255,255,0.16);color:#ffffff;}
+.hero-bg .eyebrow .dot{background:#5fd0ff;}
+.hero-bg h1{color:#ffffff;font-size:2.85rem;letter-spacing:-0.01em;}
+.hero-bg.hero-bg-sm h1{font-size:2.3rem;}
+.hero-bg h1 .accent{color:#9fc0ff;}
+.hero-bg .hero-sub{margin-top:20px;font-size:1.05rem;line-height:1.65;color:rgba(255,255,255,0.88);max-width:520px;}
+.hero-bg .hero-ctas{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap;}
+.hero-bg .hero-meta{margin-top:22px;font-size:0.85rem;color:rgba(255,255,255,0.75);display:flex;align-items:center;gap:8px;}
 /* ============ SECTIONS ============ */
 .section{padding:88px 0;}
 .section-tight{padding:66px 0;}
@@ -200,8 +192,9 @@ nav a.navlink.active:after{width:100%;}
 .access-icon{width:38px;height:38px;border-radius:11px;background:rgba(74,108,247,0.08);flex:none;display:flex;align-items:center;justify-content:center;}
 .access-row h4{font-size:0.9rem;margin-bottom:4px;}
 .access-row p{font-size:0.86rem;color:var(--gray-mid);line-height:1.5;}
-.hours-row{display:flex;justify-content:space-between;font-size:0.85rem;padding:3px 0;color:var(--gray-mid);}
-.hours-row span:first-child{color:var(--dark);font-weight:600;}
+.hours-row{display:flex;justify-content:space-between;gap:20px;font-size:0.85rem;padding:3px 0;color:var(--gray-mid);}
+.hours-row span:first-child{color:var(--dark);font-weight:600;flex:none;}
+.hours-row span:last-child{text-align:right;}
 
 .fee-card{background:var(--white);border:1px solid var(--gray);border-radius:24px;padding:40px;display:grid;grid-template-columns:1fr auto;gap:36px;align-items:center;}
 .fee-list{display:grid;grid-template-columns:1fr 1fr;gap:10px 32px;margin-top:20px;}
@@ -259,8 +252,6 @@ footer ul a:hover{color:var(--white);}
 
 /* ============ RESPONSIVE ============ */
 @media (max-width:1000px){
-  .hero-grid{grid-template-columns:1fr;}
-  .hero-visual{order:-1;max-width:400px;margin:0 auto;}
   .about-grid,.access-grid,.fee-card,.final-cta,.contact-grid{grid-template-columns:1fr;}
   .values-grid,.expect-grid,.services-grid,.doc-grid,.resource-list{grid-template-columns:repeat(2,1fr);}
   .resource-strip{grid-template-columns:repeat(2,1fr);}
@@ -292,30 +283,32 @@ footer ul a:hover{color:var(--white);}
   .nav-toggle:checked ~ nav a.navlink:nth-child(6){transition-delay:.28s;}
   .nav-toggle:checked ~ nav a.navlink:nth-child(7){transition-delay:.33s;}
   .nav-backdrop{
+    display:block;
     position:fixed;inset:0;background:rgba(15,23,42,0.4);
     opacity:0;pointer-events:none;transition:opacity .38s ease;z-index:150;
   }
   .nav-toggle:checked ~ nav{transform:translateX(0);}
   .nav-toggle:checked ~ .nav-backdrop{opacity:1;pointer-events:auto;}
-  .burger-label{display:flex;}
+  .burger-label{display:flex;flex-direction:column;justify-content:center;align-items:center;}
   /* hamburger animates into an X, and always stays clickable above the drawer */
   .nav-toggle:checked ~ .nav-right .burger-label span:nth-child(1){transform:translateY(7px) rotate(45deg);}
   .nav-toggle:checked ~ .nav-right .burger-label span:nth-child(2){opacity:0;}
   .nav-toggle:checked ~ .nav-right .burger-label span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 }
 @media (max-width:640px){
-  .hero h1,.page-hero h1{font-size:2rem;}
-  .stats-card{grid-template-columns:1fr;row-gap:18px;}
+  .hero-bg h1,.page-hero h1{font-size:2rem;}
+  .hero-bg{min-height:440px;padding:100px 0 56px;}
+  .hero-bg.hero-bg-sm{min-height:320px;padding:90px 0 44px;}
   .section{padding:50px 0;}
   .values-grid,.expect-grid,.services-grid,.doc-grid,.resource-strip,.resource-list{grid-template-columns:1fr;}
   .final-cta,.fee-card{padding:28px 22px;}
   .foot-grid{grid-template-columns:1fr;}
-  .util-inner{padding:10px 20px;font-size:0.72rem;flex-direction:column;align-items:center;text-align:center;gap:6px;}
-  .nap{justify-content:center;text-align:center;}
-  .util-right{justify-content:center;text-align:center;}
+  .util-inner{padding:10px 16px;font-size:0.72rem;gap:10px;}
+  .nap{gap:10px;}
+  .util-right{gap:10px;}
+  .home-img-hide-mobile{display:none;}
   .topbar{padding:12px 20px;}
   .wrap{padding:0 20px;}
-  .stat-card{position:static;margin:10px auto 0;box-shadow:none;border:1px solid var(--gray);max-width:none;}
   .services-cta,.section-top{flex-direction:column;align-items:flex-start;}
 }
 
@@ -326,13 +319,10 @@ footer ul a:hover{color:var(--white);}
   <div class="util-bar">
     <div class="util-inner">
       <div class="nap">
-        <strong>Haven Medical Clinic</strong>
         <span class="nap-item">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z" stroke="#38b6ff" stroke-width="1.6"/></svg>
           100-131 Commercial Drive, Kelowna, BC
         </span>
-      </div>
-      <div class="util-right">
         <a href="tel:+16729691112" class="nap-item">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.5.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.2 1L6.6 10.8Z" stroke="#38b6ff" stroke-width="1.5" stroke-linejoin="round"/></svg>
           (672) 969-1112
@@ -342,6 +332,9 @@ footer ul a:hover{color:var(--white);}
           Fax: (778) 699-4662
         </span>
         <a href="mailto:admin@havenkelowna.ca" class="nap-item">admin@havenkelowna.ca</a>
+      </div>
+      <div class="util-right">
+        <a href="https://ocean.cognisantmd.com/online-booking/37e1ea9b-dfa1-4d3d-bc92-4ea7fd2d357e" class="btn btn-primary btn-sm util-book">Book Appointment →</a>
       </div>
     </div>
   </div>
@@ -371,20 +364,18 @@ footer ul a:hover{color:var(--white);}
     <label for="navToggle" class="nav-backdrop" aria-label="Close menu"></label>
 
     <div class="nav-right">
-      <a href="https://ocean.cognisantmd.com/online-booking/37e1ea9b-dfa1-4d3d-bc92-4ea7fd2d357e" class="btn btn-primary">Book Appointment</a>
       <label for="navToggle" class="burger-label" aria-label="Menu"><span></span><span></span><span></span></label>
     </div>
   </div>
 </header>
 
 <main>
-  <section class="page-hero">
-    <div class="wrap">
-      <div class="page-hero-inner">
-        <span class="eyebrow"><span class="dot"></span>Our Services</span>
-        <h1>Comprehensive family care, across every stage of life.</h1>
-        <p>Thoughtful, comprehensive family medical care for individuals and families in Kelowna. We provide preventive care, chronic disease management, and selected uninsured services.</p>
-      </div>
+  <section class="hero-bg hero-bg-sm">
+    <img class="hero-bg-img" src="https://images.unsplash.com/photo-1666887360680-9dc27a1d2753?auto=format&fit=crop&w=1600&q=80" alt="Doctor checking a patient's blood pressure" loading="eager">
+    <div class="wrap hero-bg-content">
+      <span class="eyebrow"><span class="dot"></span>Our Services</span>
+      <h1>Comprehensive family care, across every stage of life.</h1>
+      <p class="hero-sub">Thoughtful, comprehensive family medical care for individuals and families in Kelowna. We provide preventive care, chronic disease management, and selected uninsured services.</p>
     </div>
   </section>
 
